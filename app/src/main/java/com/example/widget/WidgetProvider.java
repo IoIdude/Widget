@@ -51,9 +51,11 @@ public class WidgetProvider extends AppWidgetProvider {
 
     private class JokeLoad extends AsyncTask<Context, Void, Void> {
         private Context context;
+
         @Override
         protected Void doInBackground(Context... contexts) {
             context = contexts[0];
+
             String hrefAPI = "https://api.chucknorris.io/jokes/random";
             String jsonString = getJson(hrefAPI);
 
@@ -68,16 +70,14 @@ public class WidgetProvider extends AppWidgetProvider {
         }
 
         @Override
-        protected void onPreExecute()
-        {
+        protected void onPreExecute() {
             super.onPreExecute();
 
             futureJokeString = "";
         }
 
         @Override
-        protected void onPostExecute(Void aVoid)
-        {
+        protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
             if (!futureJokeString.equals("")) {
@@ -92,15 +92,14 @@ public class WidgetProvider extends AppWidgetProvider {
         }
     }
 
-    private String getJson(String href)
-    {
+    private String getJson(String href) {
         String data = "";
 
         try {
             URL url = new URL(href);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK);
-            {
+
+            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "utf-8"));
                 data = bufferedReader.readLine();
                 urlConnection.disconnect();
